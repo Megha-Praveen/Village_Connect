@@ -1,0 +1,674 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Village Connect</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+</head>
+<body>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        *{
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+            scroll-padding-top: 2rem;
+            scroll-behavior: smooth;
+        }
+        /* variables  */
+        :root{
+            --main-color: #ff2c1f;
+            --text-color: #020307;
+            --bg-color: #fff;
+        }
+
+        body{
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+        header{
+            position: fixed;
+            width: 100%;
+            top: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 100px;
+            transition: 0.5s;
+            /* background: var(--main-color); */
+        }
+        header.shadow{
+            background: var(--bg-color);
+            box-shadow: 0 0 4px rgb(14 55 54/15%);
+        }
+        header.shadow .navbar a{
+            color: var(--text-color);
+        }
+        header.shadow .logo{
+            color: var(--text-color);
+        }
+        .logo{
+            font-size: 1.1rem;
+            font-weight: 600;
+            align-items: center;
+            color: var(--bg-color);
+            display: flex;
+            column-gap: 0.5rem;
+        }
+        .logo img{
+            width: 8rem;
+            height: 8rem;
+        }
+        .bx{
+            color: var(--main-color);
+        }
+        .navbar{
+            display: flex;
+            column-gap: 5rem;
+        }
+        .navbar li{
+            position: relative;
+        }
+        .navbar a{
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--bg-color);
+        }
+        .navbar a::after{
+            content: '';
+            width: 0;
+            height: 2px;
+            background: var(--main-color);
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            transition: 0.4s all linear;
+        }
+        .navbar a:hover::after,
+        .navbar .home-active::after{
+            width: 100%;
+        }
+        #menu-icon{
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1000001;
+            display: none;
+        }
+        .btn{
+            padding: 0.7rem 1.4rem;
+            background: var(--main-color);
+            color: var(--bg-color);
+            font-weight: 400;
+            border-radius: 0.5rem;
+        }
+        .btn:hover{
+            background: #fa1216;
+        }
+
+        /* Home  */
+        section{
+            padding: 4.5rem 0 1.5rem;
+        }
+        .container{
+            width: 100%;
+            height: 860px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: rgb(2, 3, 7,0.5);
+        }
+        .container img{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -1;
+        }
+        .swiper-pagination-bullet{
+            width: 6px !important;
+            height: 6px !important;
+            border-radius: 0.2rem !important;
+            background: var(--bg-color) !important;
+            opacity: 1 !important;
+        }
+        .swiper-pagination-bullet-active{
+            width: 1.5rem !important;
+            background: var(--main-color) !important;
+        }
+        .home-text{
+            z-index: 1000;
+            padding: 0 150px;
+        }
+        .home-text span{
+            color: var(--bg-color);
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        .home-text h1{
+            color: var(--bg-color);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .play{
+            position: absolute;
+            right: 4rem;
+            bottom: 10%;
+        }
+        .play .bx{
+            background: var(--bg-color);
+            padding: 10px;
+            font-size: 2rem;
+            border-radius: 50%;
+            border: 4px solid rgb(2, 3, 7,0.5);
+            color: var(--main-color);
+        }
+        .play .bx:hover{
+            background: var(--main-color);
+            color: var(--bg-color);
+            transition: 0.2s all linear;
+        }
+        /* movies  */
+        .heading{
+            max-width: 968px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--main-color);
+        }
+        .movies-container{
+            max-width: 968px;
+            margin: 2rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, auto));
+            gap: 1rem;
+            justify-content: left; /* Center aligning the grid items */
+        }
+        .movies-container table th {
+            padding: 0 10px; /* Adjust the padding as needed */
+        }
+        .movies-container table td {
+            padding: 0 10px; /* Adjust the padding as needed */
+        }
+        .box .box-img{
+            width: 100%;
+            height: 270px;
+            cursor: pointer;
+        }
+        .box .box-img img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .box .box-img img:hover{
+            transform: translateY(-10px);
+            transition: 0.2s all linear;
+        }
+        .box h3{
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .box span{
+            font-size: 14px;
+        }
+
+        /* coming container  */
+        .coming-container{
+            display: grid;
+            gap: 1rem;
+            max-width: 968px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 2rem;
+        }
+        .coming-container .box img:hover{
+            transform: translateY(0);
+        }
+        .coming-container .box img{
+            border-radius: 15px;
+        }
+
+        /* newsletter  */
+        .newsletter{
+            max-width: 968px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            row-gap: 2rem;
+        }
+        .newsletter h2{
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .newsletter form{
+            background: var(--bg-color);
+            padding: 10px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .newsletter form input{
+            border: none;
+            outline: none;
+        }
+        .email{
+            width: 280px;
+        }
+        .newsletter form input::placeholder{
+            color: var(--text-color);
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+        .newsletter .btn{
+            text-transform: uppercase;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* footer  */
+        .footer{
+            max-width: 968px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .social{
+            display: flex;
+            align-items: center;
+            column-gap: 0.5rem;
+        }
+        .social .bx{
+            background: var(--bg-color);
+            padding: 2px;
+            font-size: 2rem;
+            border-radius: 50%;
+            border: 4px solid rgb(2, 3, 7,0.4);
+            color: var(--main-color);
+        }
+        .social .bx:hover{
+            background: var(--main-color);
+            color: var(--bg-color);
+            transition: 0.2s all linear;
+        }
+
+        .copyright{
+            padding: 20px;
+            text-align: center;
+            color: var(--bg-color);
+        }
+
+        /* responsive  */
+        @media (max-width: 1080px){
+            .home-text{
+                padding: 0 100px;
+            }
+        }
+        @media (max-width: 991px){
+            header{
+                padding: 18px 4%;
+            }
+            section{
+                padding: 50px 4%;
+            }
+            .home-text{
+                padding: 0 4%;
+            }
+            .home-text h1{
+                font-size: 3rem;
+            }
+        }
+        @media (max-width: 774px){
+            header{
+                padding: 12px 4%;
+            }
+            #menu-icon{
+                display: initial;
+                color: var(--bg-color);
+            }
+            header.shadow #menu-icon{
+                color: var(--text-color);
+            }
+            .navbar{
+                position: absolute;
+                top: -570px;
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                background: var(--bg-color);
+                row-gap: 1.4rem;
+                padding: 20px;
+                box-shadow: 4px 4px 0 4px rgb(14 55 54/15%);
+                transition: 0.2s all linear;
+                text-align: center;
+                width: 100%;
+            }
+            .navbar a{
+                color: var(--text-color);
+            }
+            .navbar a:hover{
+                color: var(--main-color);
+                border-bottom: 1px solid var(--main-color);
+            }
+            .navbar a::after{
+                display: none;
+            }
+            .navbar.active{
+                top: 100%;
+            }
+            .home-text h1{
+                font-size: 2.4rem;
+            }
+            .btn{
+                padding: 0.6rem 1.2rem;
+            }
+            .movies-container{
+                grid-template-columns: repeat(auto-fit, minmax(160px,auto));
+            }
+        }
+        @media (max-width: 472px){
+            .newsletter form .email{
+                width: auto;
+            }
+            .footer{
+                flex-direction: column;
+                align-items: center;
+                row-gap: 1rem;
+            }
+            .container{
+                width: 100%;
+                min-height: 500px;
+            }
+            header{
+                padding: 6px 4%;
+            }
+            .home-text h1{
+                font-size: 1.7rem;
+            }
+            .play{
+                right: 2rem;
+                bottom: 8%;
+            }
+            .play .bx{
+                padding: 7px;
+            }
+            .movies-container{
+                grid-template-columns: repeat(auto-fit, minmax(140px, auto));
+            }
+        }
+        /* Style the dropdown button */
+        .dropbtn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Style the dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        /* Style the links inside the dropdown */
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #2980b9;
+        }
+
+    </style>
+    <!-- Navbar  -->
+    <header>
+        <a href="#home" class="logo">
+            <img src="{% static 'assets/img/logo1.png' %}" alt="">Village Connect
+        </a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+
+        <!-- Menu -->
+        <ul class="navbar">
+            <li><a href="/" class="home-active">Home</a></li>
+            <div class="dropdown">
+                <button class="dropbtn">Other Registrations</button>
+                <div class="dropdown-content">
+                    <a href="member">Add Member</a>
+                    <a href="pet">Add Pet</a>
+                    <a href="vehicle">Add Vehicle</a>
+                </div>
+            </div>
+            
+            <li><a href="posts">Posts</a></li>
+            <li><a href="complaint">Complaints</a></li>
+            <li><a href="/" class="bx bx-log-out"></a></li>
+        </ul>
+    </header>
+
+    <!-- Home  -->
+    <section class="home swiper" id="home">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide container">
+                <img src="{% static 'assets/img/h1.avif' %}" alt="">
+                                <h2 class="heading">{{request.user.first_name}}</h2>
+
+            </div>
+    </section>
+    <br>
+        <div class="movies" id="movies">
+            <h2 class="heading">Other Users</h2>
+            <div class="movies-container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="highlight">
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Occupation</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">Relationship</th>
+                            <th scope="col">Qualification</th>
+                            <th scope="col">Blood Group</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in members %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{member.fullname}}</td>
+                            <td>{{member.age}}</td>
+                            <td>{{member.occupation}}</td>
+                            <td>{{member.mobilenumber}}</td>
+                            <td>{{member.relationship}}</td>
+                            <td>{{member.qualification}}</td>
+                            <td>{{member.bloodgroup}}</td>
+                            <td><button class="btn btn-primary" onclick="editMember('{{ member.id }}')"><i class="lni lni-pencil"></i></button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <br>
+        <div class="movies" id="movies">
+            <h2 class="heading">Pets</h2>
+            <div class="movies-container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="highlight">
+                            <th scope="col">#</th>
+                            <th scope="col">Pet Name</th>
+                            <th scope="col">Pet Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pet in pets %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{pet.petname}}</td>
+                            <td>{{pet.pettype}}</td>
+                            <td><button class="btn btn-primary" onclick="editPet('{{ pet.id }}')"><i class="lni lni-pencil"></i></button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <br>
+        <div class="movies" id="movies">
+            <h2 class="heading">Vehicles</h2>
+            <div class="movies-container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="highlight">
+                            <th scope="col">#</th>
+                            <th scope="col">Vehicle No</th>
+                            <th scope="col">Vehicle Type</th>
+                            <th scope="col">Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vehicle in vehicles %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ vehicle.vehicle_number }}</td>
+                            <td>{{ vehicle.vehicle_type }}</td>
+                            <td>
+                                <!-- Display image name as a download link -->
+                                <a href="{{ vehicle.vehicle_img.url }}" download="{{ vehicle.vehicle_img.name }}">
+                                    {{ vehicle.vehicle_img.name }} <!-- Display image name as link text -->
+                                </a>
+                            </td>
+                            <td><button class="btn btn-primary" onclick="editVehicle('{{ vehicle.id }}')"><i class="lni lni-pencil"></i></button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        
+        
+    
+
+    <script>
+        let header = document.querySelector('header');
+
+        window.addEventListener('scroll', () =>{
+            header.classList.toggle('shadow', window.scrollY > 0);
+        });
+
+        let menu = document.querySelector('#menu-icon');
+        let navbar = document.querySelector('.navbar');
+
+        menu.onclick = () =>{
+            menu.classList.toggle('bx-x');
+            navbar.classList.toggle('active');
+        }
+        window.onscroll = () =>{
+            menu.classList.remove('bx-x');
+            navbar.classList.remove('active');
+        }
+
+
+        var swiper = new Swiper(".home", {
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+            },
+            pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            },
+        });
+        var swiper = new Swiper(".coming-container", {
+            spaceBetween: 20,
+            loop: true,
+            centeredSlides: true,
+            autoplay: {
+            delay: 2000,
+            disableOnInteraction: false,
+            },
+            breakpoints: {
+                0: {
+                    slidesPerView: 2,
+                },
+                568: {
+                    slidesPerView: 3,
+                },
+                768: {
+                    slidesPerView: 4,
+                },
+                968: {
+                    slidesPerView: 5,
+                },
+
+            }
+        });
+
+        function editMember(memberId) {
+        // Redirect to the edit member page using JavaScript
+        window.location.href = `/edit_member/${memberId}/`;
+        }
+
+        function editPet(petId) {
+            // Redirect to the edit pet page using JavaScript
+            window.location.href = `/edit_pet/${petId}/`;
+        }
+
+
+        function editVehicle(vehicleId) {
+        // Redirect to the edit page using JavaScript
+        window.location.href = `/edit_vehicle/${vehicleId}/`;
+        }
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+</body>
+</html>

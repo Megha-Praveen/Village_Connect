@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Village Connect</title>
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+</head>
+<body>
+    <!-- Navbar  -->
+    <header>
+        <a href="#home" class="logo">
+            <img src="{% static 'assets/img/logo1.png' %}" alt="">Village Connect
+        </a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+
+        <!-- menu  -->
+        <ul class="navbar">
+            <li><a href="#home" class="home-active">Home</a></li>
+            <li><a href="#movies">Announcements</a></li>
+            <li><a href="#coming">Posts</a></li>
+            <li><a href="visitors">Visitors</a></li>
+            <li><a href="register" class="btn">Sign Up</a></li>
+            <li><a href="{% url 'login' %}" class="btn">Sign In</a></li>
+        </ul>
+    </header>
+
+    <!-- Home  -->
+    <section class="home swiper" id="home">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide container">
+                <img src="{% static 'assets/img/h2.jpg' %}" alt="">
+            </div>
+            <div class="swiper-slide container">
+                <img src="{% static 'assets/img/h3.webp' %}" alt="">
+            </div>
+            <div class="swiper-slide container">
+                <img src="{% static 'assets/img/h4.jpg' %}" alt="">
+            </div>
+            <div class="swiper-slide container">
+                <img src="{% static 'assets/img/home4.webp' %}" alt="">
+            </div>     
+        </div>
+        <div class="swiper-pagination"></div>
+    </section>
+<br>
+    <!-- Movies  -->
+    <div class="movies" id="movies">
+        <h2 class="heading">Announcements</h2>
+
+        <!-- Movies container  -->
+        <div class="movies-container">
+            <Marquee direction="Up" behaviour="scroll" scrollamount="10">
+                {% for announcements in announcements %}
+                    <h3>{{announcements.title}}</h3>
+                    <br>
+                    <p>{{announcements.announcements}}</p>
+                    <br>
+                    <br>
+                {% endfor %}
+            </Marquee>
+        </div>
+    </div>
+
+    <!-- coming  -->
+    <section class="coming" id="coming">
+       
+        <h2 class="heading">Posts</h2>
+        <!-- coming container -->
+        <div class="coming-container swiper">
+            <div class="swiper-wrapper">
+                <!-- Iterate over each post -->
+                {% for post in posts %}
+                <div class="swiper-slide box">
+                    <div class="box-img">
+                        <!-- Adjust the image source to point to the correct path -->
+                        <img src="{% if post.img %}{{ post.img.url }}{% else %}{% static 'path/to/placeholder/image.jpg' %}{% endif %}" alt="">
+                    </div>
+                    <h2>{{ post.title }}</h2>
+                    <h3>{{ post.desc }}</h3>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Newsletter /\ -->
+    <!-- <section class="newsletter" id="newsletter">
+        <h2>Subscribe To Get <br>Newsletter</h2>
+        <form action="">
+            <input type="email" class="email" placeholder="Enter Email" required>
+            <input type="submit" value="Subscribe" class="btn">
+        </form>
+    </section> -->
+
+    <!-- footer  -->
+    <section class="footer">
+        <a href="" class="logo">
+            <img src="{% static 'assets/img/logo1.png' %}" alt="">Village Connect
+        </a>
+        <div class="social">
+            <a href=""><i class='bx bxl-facebook'></i></a>
+            <a href=""><i class='bx bxl-twitter'></i></a>
+            <a href=""><i class='bx bxl-instagram'></i></a>
+        </div>
+    </section>
+
+    <!-- Copyright  -->
+    <div class="copyright">
+        <p>&#169; Village Connect All Right Reserved</p>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="{% static 'assets/js/script.js' %}"></script>
+</body>
+</html>

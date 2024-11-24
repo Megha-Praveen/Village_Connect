@@ -1,0 +1,178 @@
+{% load static %}
+<title>Visitors</title>
+{% block content %}
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner:wght@400;500;600;700&family=Gabarito:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+		
+		:root {
+				/*========== Colors ==========*/
+				/*Color mode HSL(hue, saturation, lightness)*/
+				--white-color: hsl(0, 0%, 100%);
+				--black-color: hsl(0, 0%, 0%);
+
+				/*========== Font and typography ==========*/
+				/*.5rem = 8px | 1rem = 16px ...*/
+				--body-font: "Poppins", sans-serif;
+				--h1-font-size: 2rem;
+				--normal-font-size: 1rem;
+				--small-font-size: .813rem;
+			}
+		* {
+			box-sizing: border-box;
+			padding: 0;
+			margin: 0;
+		}
+
+		body,
+		input,
+		button {
+			font-family: var(--body-font);
+			font-size: var(--normal-font-size);
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+		}
+
+			/*=============== LOGIN ===============*/
+		.register {
+			position: relative;
+			height: 100vh;
+			display: grid;
+			align-items: center;
+		}
+
+		.register__bg {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
+
+		.register__form {
+			position: relative;
+			margin-inline: 1.5rem;
+			background-color: hsla(0, 0%, 100%, .01);
+			border: 2px solid hsla(0, 0%, 100%, .7);
+			padding: 2.5rem 1rem;
+			color: var(--white-color);
+			border-radius: 1rem;
+			backdrop-filter: blur(16px);
+		}
+
+		.register__title {
+			text-align: center;
+			font-size: var(--h1-font-size);
+			margin-bottom: 1.25rem;
+		}
+
+		.register__inputs, 
+		.register__box {
+			display: grid;
+		}
+
+		.register__inputs {
+			row-gap: 1.25rem;
+			margin-bottom: 1rem;
+		}
+
+		.register__box {
+			grid-template-columns: 1fr max-content;
+			column-gap: .75rem;
+			align-items: center;
+			border: 2px solid hsla(0, 0%, 100%, .7);
+			padding-inline: 1.25rem;
+			border-radius: 4rem;
+		}
+
+		.register__input, 
+		.register__button {
+			border: none;
+			outline: none;
+		}
+
+		.register__input {
+			width: 100%;
+			background: none;
+			color: var(--white-color);
+			padding-block: 1rem;
+		}
+
+		.register__input::placeholder {
+			color: var(--white-color);
+		}
+
+		.register__box i {
+			font-size: 1.25rem;
+		}
+
+		.register__button {
+			width: 100%;
+			padding: 1rem;
+			margin-bottom: 1rem;
+			background-color: var(--white-color);
+			border-radius: 4rem;
+			color: var(--black-color);
+			font-weight: 500;
+			cursor: pointer;
+		}
+
+		.register__register {
+			font-size: var(--small-font-size);
+			text-align: center;
+		}
+
+		.register__register a {
+			color: var(--white-color);
+			font-weight: 500;
+		}
+
+		.register__register a:hover {
+			text-decoration: underline;
+		}
+
+		@media screen and (min-width: 576px) {
+			.register {
+				justify-content: center;
+			}
+			.register__form {
+				width: 420px;
+				padding-inline: 2.5rem;
+			}
+			.register__title {
+				margin-bottom: 2rem;
+			}
+		}
+	</style>
+	
+	<div class="register">
+		<img src="{% static 'assets/img/login.avif' %}" alt="image" class="register__bg">
+		<form action="visitors" method="post" class="register__form">
+			{% csrf_token %}
+			<h1 class="register__title">Visitor</h1>
+			<div class="register__inputs">
+				<div class="register__box">
+					<input type="text" class="register__input" name="name" placeholder="Name" required>
+				</div>
+                <div class="register__box">
+					<input type="email" class="register__input" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" placeholder="Email" required>
+				</div>
+				<div class="register__box">
+					<input type="text" class="register__input" name="address" placeholder="House Name" required>
+				</div>
+                <div class="register__box">
+					<input type="tel" class="register__input" name="mobilenumber" maxlength="10" placeholder="Mobile Number" required>
+				</div>
+			</div>
+			<button type="submit" class="register__button">Register</button>
+		</form>
+	</div>
+
+	{% endblock content %}
